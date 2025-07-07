@@ -3,40 +3,23 @@ from formats import generate_emails
 
 class Test(unittest.TestCase):
     def test1(self):
-        name = "Max Mustermann"
+        names = """Max Mustermann
+        John Doe
+        Toller Name"""
         format = "first.last"
         domain = "example.com"
-        self.assertEqual(generate_emails(name, format, domain), "max.mustermann@example.com")
+        self.assertEqual(generate_emails(names, format, domain), "max.mustermann@example.com\njohn.doe@example.com\ntoller.name@example.com\n")
     def test2(self):
-        name = "Max Mustermann"
+        name = "Max Mustermann\nJohn DOe\nToller Name"
         format = "f.last"
         domain = "example.com"
-        self.assertEqual(generate_emails(name, format, domain), "m.mustermann@example.com")
+        self.assertEqual(generate_emails(name, format, domain), "m.mustermann@example.com\nj.doe@example.com\nt.name@example.com\n")
     def test3(self):
-        name = "Max Mustermann"
-        format = "first_last"
-        domain = "example.com"
-        self.assertEqual(generate_emails(name, format, domain), "max_mustermann@example.com")
-    def test4(self):
-        name = "Max Mustermann"
-        format = "first.l"
-        domain = "example.com"
-        self.assertEqual(generate_emails(name, format, domain), "max.m@example.com")
-    def test5(self):
-        name = "Max Mustermann"
-        format = "last.first"
-        domain = "example.com"
-        self.assertEqual(generate_emails(name, format, domain), "mustermann.max@example.com")
-    def test6(self):
-        name = "Max Mustermann"
+        name = "Max Mustermann\nJohn Doe\nTOLLER Name"
         format = "l.first"
         domain = "example.com"
-        self.assertEqual(generate_emails(name, format, domain), "m.max@example.com")
-    def test7(self):
-        name = "Max Mustermann"
-        format = "flast"
-        domain = "example.com"
-        self.assertEqual(generate_emails(name, format, domain), "mmustermann@example.com")
+        self.assertEqual(generate_emails(name, format, domain), "m.max@example.com\nd.john@example.com\nn.toller@example.com\n")
+
 
 
 
