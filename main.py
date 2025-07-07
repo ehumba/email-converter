@@ -35,7 +35,7 @@ class Window:
         label_names = ttk.Label(self.root, text="Copy name list:", font=("arial", 14))
         label_names.pack(padx=5, pady=5)
 
-        self.name_input = ScrolledText(self.root, width=25, height=20)
+        self.name_input = ScrolledText(self.root, width=35, height=25)
         self.name_input.pack(padx=5, pady=5)
 
         # Convert
@@ -61,15 +61,25 @@ class Window:
         # Create an output window called by the Convert button
         out_win = tk.Toplevel(self.root)
         out_win.title("Email Converter Output")
-        out_win.geometry("700x500+150+100")
+        out_win.geometry("700x600+150+100")
 
         # Add the textbox with the output
         output_label = ttk.Label(out_win, text="Email address list", font=("arial", 14))
         output_label.pack(padx=5, pady=5)
 
-        output = ScrolledText(out_win, width=40, height=40)
+        output = ScrolledText(out_win, width=40, height=30)
         output.pack(padx=5, pady=5)
         output.insert("1.0", email_output)
+        output.configure(state='disabled')
+
+        # Copy to clipboard
+        def copy_to_clipboard():
+            self.root.clipboard_clear()
+            self.root.clipboard_append(email_output)
+            tk.messagebox.showinfo("Copied", "Email addresses successfully copied to clipboard")
+
+        copy_button = ttk.Button(out_win, text="Copy to clipboard", command=copy_to_clipboard)
+        copy_button.pack(padx=4, pady=4)
 
         out_win.mainloop()
 
@@ -78,8 +88,10 @@ class Window:
 
 
 
+
+
 def main():
-    win = Window(800, 550)
+    win = Window(900, 650)
     win.create_widgets()
     win.root.mainloop()
 
